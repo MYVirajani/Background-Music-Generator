@@ -1,0 +1,5 @@
+streamlit
+tensorflow
+music21
+numpy
+midi2audio
