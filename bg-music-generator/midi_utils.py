@@ -45,10 +45,11 @@ def midi_to_wav(midi_path, wav_path, soundfont_path='soundfont/FluidR3_GM.sf2', 
 
     cmd = [
         "fluidsynth", "-ni",
-        soundfont_path,
-        midi_path,
+        "-a", "file",
         "-F", wav_path,
-        "-r", "44100"
+        "-r", "44100",
+        soundfont_path,
+        midi_path
     ]
 
     try:
@@ -57,17 +58,13 @@ def midi_to_wav(midi_path, wav_path, soundfont_path='soundfont/FluidR3_GM.sf2', 
             capture_output=True,
             text=True,
             timeout=timeout,
-            stdin=subprocess.DEVNULL   
+            stdin=subprocess.DEVNULL
         )
     except subprocess.TimeoutExpired:
-        raise RuntimeError(
-            f"FluidSynth timed out after {timeout}s — it may have entered interactive mode instead of rendering."
-        )
+        raise RuntimeError(f"FluidSynth timed out after {timeout}s")
 
     if result.returncode != 0:
-        print("FluidSynth STDOUT:", result.stdout)
-        print("FluidSynth STDERR:", result.stderr)
-        raise RuntimeError(f"FluidSynth conversion failed:\n{result.stderr}")
+        raise RuntimeError(f"FluidSynth conversion failed:\nSTDOUT: {result.stdout}\nSTDERR: {result.stderr}")
 
     if not os.path.exists(wav_path) or os.path.getsize(wav_path) == 0:
         raise RuntimeError("FluidSynth ran but produced no valid WAV output")

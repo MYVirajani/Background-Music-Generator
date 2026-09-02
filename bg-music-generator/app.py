@@ -56,7 +56,7 @@ sequence_length = mappings["sequence_length"]
 st.title("🎵 AI Background Music Generator")
 st.markdown(
     "Generate original, royalty-free classical piano background music for your videos, "
-    "streams, or projects"
+    "streams, or projects."
 )
 st.divider()
 
@@ -120,8 +120,6 @@ if generate_btn:
         if not prediction_output or len(prediction_output) == 0:
             raise ValueError("Generation produced an empty sequence — check the model/mappings.")
 
-        st.write(f"Debug: generated {len(prediction_output)} notes")  
-
        
         progress_text.text("Rendering MIDI...")
         progress_bar.progress(65)
@@ -136,8 +134,6 @@ if generate_btn:
             raise FileNotFoundError(f"MIDI file was not created at {midi_path}")
         if os.path.getsize(midi_path) == 0:
             raise ValueError(f"MIDI file was created but is empty: {midi_path}")
-
-        st.write(f"Debug: MIDI created — {os.path.getsize(midi_path)} bytes")  
 
      
         progress_text.text("Rendering audio...")
@@ -168,9 +164,7 @@ if generate_btn:
 
         st.info("This track is uniquely generated — safe to use without copyright/royalty concerns.")
 
-        with st.expander("See raw generated sequence"):
-            st.write(prediction_output)
-
+        
     except Exception as e:
         progress_bar.empty()
         progress_text.empty()
