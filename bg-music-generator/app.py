@@ -11,7 +11,7 @@ from generate import generate_notes
 from midi_utils import create_midi, midi_to_wav, estimate_duration_seconds
 
 
-st.set_page_config(page_title="AI Background Music Generator", page_icon="🎵", layout="centered")
+st.set_page_config(page_title="Background Music Generator", page_icon="🎵", layout="centered")
 
 
 MODEL_PATH = "model_files/final_model.keras"
@@ -53,7 +53,7 @@ n_vocab = mappings["n_vocab"]
 sequence_length = mappings["sequence_length"]
 
 
-st.title("🎵 AI Background Music Generator")
+st.title("🎵 Background Music Generator")
 st.markdown(
     "Generate original, royalty-free classical piano background music for your videos, "
     "streams, or projects."
